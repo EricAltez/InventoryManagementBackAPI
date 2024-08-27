@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -13,11 +13,23 @@ export class UserService {
   ) {}
 
   async createUser(userData: CreateUserDto): Promise<User> {
-    // mod the dto or copy?
     const hashedPassword = await hashPassword(userData.password);
     userData.password = hashedPassword;
     const createdUser = this.usersRepository.create(userData);
-    return this.usersRepository.save(createdUser);
+    try {
+      await this.usersRepository.save(createdUser);
+      return createdUser;
+    } catch (error) {
+      if (error.code == 'ER_DUP_ENTRY') {
+        console.log('error:', error.code);
+        throw new HttpException(
+          { status: HttpStatus.BAD_REQUEST, error: 'Email already in use' },
+          HttpStatus.BAD_REQUEST,
+          { cause: error },
+        );
+      }
+      throw error;
+    }
   }
 
   async findAll(): Promise<User[]> {
