@@ -21,11 +21,9 @@ export class UserService {
       return createdUser;
     } catch (error) {
       if (error.code == 'ER_DUP_ENTRY') {
-        console.log('error:', error.code);
         throw new HttpException(
-          { status: HttpStatus.BAD_REQUEST, error: 'Email already in use' },
-          HttpStatus.BAD_REQUEST,
-          { cause: error },
+          { error: 'Email already in use' },
+          HttpStatus.CONFLICT,
         );
       }
       throw error;
