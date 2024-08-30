@@ -13,10 +13,10 @@ export class UserService {
   ) {}
 
   async createUser(userData: CreateUserDto): Promise<User> {
-    const hashedPassword = await hashPassword(userData.password);
-    userData.password = hashedPassword;
-    const createdUser = this.usersRepository.create(userData);
     try {
+      const hashedPassword = await hashPassword(userData.password);
+      userData.password = hashedPassword;
+      const createdUser = this.usersRepository.create(userData);
       await this.usersRepository.save(createdUser);
       return createdUser;
     } catch (error) {
