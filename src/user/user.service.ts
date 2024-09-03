@@ -37,9 +37,9 @@ export class UserService {
   async findById(id: number): Promise<User | null> {
     return await this.usersRepository.findOneBy({ id });
   }
-
-  async findByUsername(username: string): Promise<User | null> {
-    return await this.usersRepository.findOneBy({ username });
+  //this should be the same function
+  async findByEmail(email: string): Promise<User | null> {
+    return await this.usersRepository.findOneBy({ email });
   }
 
   async delete(id: number): Promise<void> {
