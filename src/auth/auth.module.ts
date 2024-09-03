@@ -10,7 +10,6 @@ import { JwtModule } from '@nestjs/jwt';
     forwardRef(() => UserModule),
     JwtModule.register({
       global: true,
-      signOptions: { expiresIn: '3600s' },
     }),
   ],
   controllers: [AuthController],
