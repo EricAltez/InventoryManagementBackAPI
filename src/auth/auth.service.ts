@@ -13,7 +13,7 @@ export class AuthService {
   ) {}
 
   jwt_secret = this.configService.get('JWT_SECRET');
-  jwt_expiratio = this.configService.get('JWT_EXPIRATION');
+  jwt_expiration = this.configService.get('JWT_EXPIRATION');
 
   async signIn(
     email: string,
@@ -31,6 +31,7 @@ export class AuthService {
     return {
       access_token: await this.jwtService.signAsync(payload, {
         secret: this.jwt_secret,
+        expiresIn: this.jwt_expiration,
       }),
     };
   }
