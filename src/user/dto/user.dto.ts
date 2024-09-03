@@ -1,7 +1,11 @@
 export class CreateUserDto {
-  firstName: string;
-  lastName: string;
+  username: string;
   email: string;
   password: string;
   isActive: boolean;
+}
+
+export class LogginUserDto {
+  email: string;
+  password: string;
 }
