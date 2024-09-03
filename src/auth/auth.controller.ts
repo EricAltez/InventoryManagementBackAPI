@@ -15,7 +15,7 @@ export class AuthController {
     return this.userService.createUser(userData);
   }
 
-  @Post('loggin')
+  @Post('login')
   async userLogin(@Body() userData: LogginUserDto) {
     return this.authService.signIn(userData.email, userData.password);
   }
