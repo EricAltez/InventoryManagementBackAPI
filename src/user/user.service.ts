@@ -1,23 +1,31 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/user.dto';
+import { CreateUserDto } from '../dto/user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from './entity/user.entity';
+import { Repository, In } from 'typeorm';
+import { User } from '../entity/user.entity';
 import { hashPassword } from 'src/utils/bcrypt';
+import { Role } from 'src/entity/role.entity';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    @InjectRepository(Role)
+    private roleRepository: Repository<Role>,
   ) {}
 
   async createUser(userData: CreateUserDto): Promise<User> {
     try {
+      const roles = await this.roleRepository.findBy({ name: 'User' });
+      console.log(roles);
       const hashedPassword = await hashPassword(userData.password);
       userData.password = hashedPassword;
-      const createdUser = this.usersRepository.create(userData);
+      // changing roles name generates an error
+      const createdUser = this.usersRepository.create({ ...userData, roles });
+      console.log(createdUser);
       await this.usersRepository.save(createdUser);
+      console.log(createdUser);
       return createdUser;
     } catch (error) {
       if (error.code == 'ER_DUP_ENTRY') {
