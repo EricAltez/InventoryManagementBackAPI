@@ -5,6 +5,7 @@ import { User } from './entity/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { Role } from './entity/role.entity';
+import { RoleModule } from './role/role.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { Role } from './entity/role.entity';
     }),
     UserModule,
     AuthModule,
+    RoleModule,
   ],
 })
 export class AppModule {}

@@ -13,4 +13,9 @@ export class RoleService {
   async findRoles() {
     return await this.roleRepository.findOneBy({ name: 'User' });
   }
+
+  async createRole(Role) {
+    const newRole = this.roleRepository.create(Role);
+    await this.roleRepository.save(newRole);
+  }
 }
