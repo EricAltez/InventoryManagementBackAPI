@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { createRoleDto } from 'src/dto/role.dto';
 import { Role } from 'src/entity/role.entity';
 import { Repository } from 'typeorm';
 
@@ -14,8 +15,9 @@ export class RoleService {
     return await this.roleRepository.findOneBy({ name: 'User' });
   }
 
-  async createRole(Role) {
-    const newRole = this.roleRepository.create(Role);
+  //add exeption for duplicated entry
+  async createRole(roleData: createRoleDto) {
+    const newRole = this.roleRepository.create(roleData);
     await this.roleRepository.save(newRole);
   }
 }
