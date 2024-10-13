@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { Role } from './entity/role.entity';
 import { RoleModule } from './role/role.module';
+import { Permision } from './entity/permision.entity';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { RoleModule } from './role/role.module';
       username: 'root',
       password: 'asdasd',
       database: 'loggin',
-      entities: [User, Role],
+      entities: [User, Role, Permision],
       //synchronize: true shouldn't be used in production
       synchronize: true,
     }),
