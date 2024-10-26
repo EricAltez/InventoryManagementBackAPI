@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from './user.entity';
-import { Permision } from './permision.entity';
+import { Permission } from './permission.entity';
 
 @Entity()
 export class Role {
@@ -16,9 +16,9 @@ export class Role {
   @Column({ unique: true })
   name: string;
 
-  @ManyToMany(() => Permision, { cascade: true })
+  @ManyToMany(() => Permission, { cascade: true })
   @JoinTable()
-  permisions: Permision[];
+  permissions: Permission[];
 
   @ManyToMany(() => User, (user) => user.roles)
   users: User[];

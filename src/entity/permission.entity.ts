@@ -8,13 +8,16 @@ import {
 import { Role } from './role.entity';
 
 @Entity()
-export class Permision {
+export class Permission {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   action: string;
 
-  @ManyToMany(() => Role, (role) => role.permisions)
+  @Column()
+  object: string;
+
+  @ManyToMany(() => Role, (role) => role.permissions)
   roles: Role[];
 }

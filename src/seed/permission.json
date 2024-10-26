@@ -1,0 +1,50 @@
+[
+  {
+    "action": "view",
+    "object": "user"
+  },
+  {
+    "action": "update",
+    "object": "user"
+  },
+  {
+    "action": "delete",
+    "object": "user"
+  },
+  {
+    "action": "create",
+    "object": "role"
+  },
+  {
+    "action": "view",
+    "object": "role"
+  },
+  {
+    "action": "update",
+    "object": "role"
+  },
+  {
+    "action": "delete",
+    "object": "role"
+  },
+  {
+    "action": "create",
+    "object": "permission"
+  },
+  {
+    "action": "view",
+    "object": "permission"
+  },
+  {
+    "action": "update",
+    "object": "permission"
+  },
+  {
+    "action": "delete",
+    "object": "permission"
+  },
+  {
+    "action": "all",
+    "object": "all"
+  }
+]

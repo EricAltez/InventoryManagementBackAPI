@@ -1,0 +1,30 @@
+[
+  {
+    "username": "theDude",
+    "email": "thedude12@gmail.com",
+    "password": "password",
+    "isActive": true,
+    "roles": ["admin", "manager"]
+  },
+  {
+    "username": "joe",
+    "email": "joe@gmail.com",
+    "password": "password",
+    "isActive": true,
+    "roles": ["manager"]
+  },
+  {
+    "username": "jony",
+    "email": "jonicash@gmail.com",
+    "password": "password",
+    "isActive": true,
+    "roles": ["manager"]
+  },
+  {
+    "username": "user",
+    "email": "user1@gmail.com",
+    "password": "password",
+    "isActive": true,
+    "roles": []
+  }
+]
