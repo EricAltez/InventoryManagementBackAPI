@@ -1,49 +1,61 @@
 [
   {
+    "name": "vu",
     "action": "view",
     "object": "user"
   },
   {
+    "name": "uu",
     "action": "update",
     "object": "user"
   },
   {
+    "name": "du",
     "action": "delete",
     "object": "user"
   },
   {
+    "name": "cr",
     "action": "create",
     "object": "role"
   },
   {
+    "name": "vr",
     "action": "view",
     "object": "role"
   },
   {
+    "name": "ur",
     "action": "update",
     "object": "role"
   },
   {
+    "name": "dr",
     "action": "delete",
     "object": "role"
   },
   {
+    "name": "cp",
     "action": "create",
     "object": "permission"
   },
   {
+    "name": "vp",
     "action": "view",
     "object": "permission"
   },
   {
+    "name": "up",
     "action": "update",
     "object": "permission"
   },
   {
+    "name": "dp",
     "action": "delete",
     "object": "permission"
   },
   {
+    "name": "a",
     "action": "all",
     "object": "all"
   }

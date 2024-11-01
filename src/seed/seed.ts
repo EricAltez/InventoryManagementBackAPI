@@ -14,13 +14,13 @@ let permissionRepository: Repository<Permission>;
 
 const loadEntities = async () => {
   console.log('loading entities');
-  await permissionRepository.save(permissionsData);
-  await roleRepository.save(rolesData);
+  await permissionRepository.upsert(permissionsData, ['name']);
+  await roleRepository.upsert(rolesData, ['name']);
   const userDataWithoutRoles = usersData.map((u) => {
     const { roles, ...data } = u;
     return data;
   });
-  await userRepository.save(userDataWithoutRoles);
+  await userRepository.upsert(userDataWithoutRoles, ['email']);
   console.log('done loadiong entities');
 };
 

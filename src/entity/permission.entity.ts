@@ -4,6 +4,7 @@ import {
   JoinTable,
   ManyToMany,
   PrimaryGeneratedColumn,
+  Unique,
 } from 'typeorm';
 import { Role } from './role.entity';
 
@@ -11,6 +12,9 @@ import { Role } from './role.entity';
 export class Permission {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ unique: true })
+  name: string;
 
   @Column()
   action: string;
