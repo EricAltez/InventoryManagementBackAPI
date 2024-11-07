@@ -14,7 +14,7 @@ let permissionRepository: Repository<Permission>;
 
 const loadEntities = async () => {
   console.log('loading entities');
-  await permissionRepository.upsert(permissionsData, ['name']);
+  await permissionRepository.upsert(permissionsData, ['action', 'object']);
   await roleRepository.upsert(rolesData, ['name']);
   const userDataWithoutRoles = usersData.map((u) => {
     const { roles, ...data } = u;

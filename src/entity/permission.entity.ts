@@ -3,6 +3,7 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
@@ -10,16 +11,10 @@ import { Role } from './role.entity';
 
 @Entity()
 export class Permission {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({ unique: true })
-  name: string;
-
-  @Column()
+  @PrimaryColumn()
   action: string;
 
-  @Column()
+  @PrimaryColumn()
   object: string;
 
   @ManyToMany(() => Role, (role) => role.permissions)
