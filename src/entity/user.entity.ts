@@ -1,4 +1,3 @@
-import { RoleEnum } from 'src/role/role.enum';
 import {
   Column,
   Entity,
