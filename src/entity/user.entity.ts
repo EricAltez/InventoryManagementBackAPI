@@ -25,7 +25,7 @@ export class User {
   @Column()
   isActive: boolean;
 
-  @ManyToMany(() => Role, { cascade: true })
+  @ManyToMany(() => Role, (role) => role.users)
   @JoinTable()
   roles: Role[];
 }
