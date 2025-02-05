@@ -19,7 +19,7 @@ import { Permission } from './entity/permission.entity';
       port: 3306,
       username: 'root',
       password: 'asdasd',
-      database: 'loggin',
+      database: 'inventorydb',
       entities: [User, Role, Permission],
       //synchronize: true shouldn't be used in production
       synchronize: true,

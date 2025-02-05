@@ -10,7 +10,7 @@ const dataSource = new DataSource({
   port: 3306, // Change to 3306 for MySQL or 0 if using SQLite
   username: 'root', // Your DB username
   password: 'asdasd',
-  database: 'loggin',
+  database: 'inventorydb',
   entities: [User, Role, Permission], // Include your entities here
   synchronize: true, // Use in development only! (Auto-creates tables)
 });
