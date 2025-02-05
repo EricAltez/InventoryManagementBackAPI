@@ -18,7 +18,7 @@ import { RoleModule } from './role/role.module';
       port: 3306,
       username: 'root',
       password: 'asdasd',
-      database: 'loggin',
+      database: 'inventorydb',
       entities: [User, Role],
       //synchronize: true shouldn't be used in production
       synchronize: true,
