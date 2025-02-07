@@ -1,11 +1,11 @@
-import { Category } from "src/entity/category.entity";
+import { Category } from "src/category/entity/category.entity";
 import { PrimaryGeneratedColumn, Column, Entity, ManyToMany } from "typeorm";
 
 
-export class ProductDto{
+export class CreateProductDto{
     name: string;
     price: number;
     description: string;
     quantity: number;
-    categories: Category[];
+    categories?: string[];
 }

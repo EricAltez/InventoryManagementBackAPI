@@ -1,7 +1,8 @@
 import { DataSource } from 'typeorm';
-import { User } from '../entity/user.entity';
-import { Role } from '../entity/role.entity';
-import { Permission } from '../entity/permission.entity';
+import { User } from 'src/user/entity/user.entity';
+import { Role } from '../role/entity/role.entity';
+import { Permission } from 'src/permission/entity/permission.entity';
+import { Product } from '../product/entity/product.entity';
 // Adjust path to your User entity
 
 const dataSource = new DataSource({
@@ -11,7 +12,7 @@ const dataSource = new DataSource({
   username: 'root', // Your DB username
   password: 'asdasd',
   database: 'inventorydb',
-  entities: [User, Role, Permission], // Include your entities here
+  entities: [User, Role, Permission, Product], // Include your entities here
   synchronize: true, // Use in development only! (Auto-creates tables)
 });
 

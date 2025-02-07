@@ -1,26 +1,35 @@
-import { User } from '../entity/user.entity';
+import { User } from 'src/user/entity/user.entity';
 import dataSource from './ormConfig';
-import { Role } from '../entity/role.entity';
-import { Permission } from '../entity/permission.entity';
+import { Role } from '../role/entity/role.entity';
+import { Permission } from 'src/permission/entity/permission.entity';
+import { Product } from '../product/entity/product.entity';
 import * as permissionsData from './permission.json';
 import * as rolesData from './role.json';
 import * as usersData from './user.json';
+import * as productData from './product.json'
 import { In, Repository } from 'typeorm';
+import { hashPassword } from '../utils/bcrypt';
+
 
 console.log('1.0');
 let userRepository: Repository<User>;
 let roleRepository: Repository<Role>;
 let permissionRepository: Repository<Permission>;
+let productRepository: Repository<Product>
 
 const loadEntities = async () => {
   console.log('loading entities');
   await permissionRepository.upsert(permissionsData, ['action', 'object']);
   await roleRepository.upsert(rolesData, ['name']);
-  const userDataWithoutRoles = usersData.map((u) => {
+  const userDataWithoutRoles = await Promise.all(usersData.map(async (u) => {
+    u.password = await hashPassword(u.password)
     const { roles, ...data } = u;
     return data;
-  });
+  }));
   await userRepository.upsert(userDataWithoutRoles, ['email']);
+  console.log(productRepository)
+  // const newProduct = await productRepository.create(productData)
+  // await productRepository.save(newProduct)
   console.log('done loadiong entities');
 };
 
