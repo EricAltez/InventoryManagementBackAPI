@@ -10,12 +10,15 @@ import { Permission } from 'src/permission/entity/permission.entity';
 import { ProductModule } from './product/product.module';
 import { Product } from './product/entity/product.entity';
 import { CategoryModule } from './category/category.module';
+import { Category } from './category/entity/category.entity';
 
+console.log(process.env.USERNAME, process.env.PASSWORD)
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    // credentials shouldn't be on plain text
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -23,7 +26,7 @@ import { CategoryModule } from './category/category.module';
       username: 'root',
       password: 'asdasd',
       database: 'inventorydb',
-      entities: [User, Role, Permission, Product],
+      entities: [User, Role, Permission, Product, Category],
       //synchronize: true shouldn't be used in production
       synchronize: true,
     }),

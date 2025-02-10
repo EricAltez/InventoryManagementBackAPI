@@ -7,5 +7,5 @@ export class CreateProductDto{
     price: number;
     description: string;
     quantity: number;
-    categories?: string[];
+    categories: Category[];
 }

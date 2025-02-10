@@ -1,8 +1,16 @@
 [
     {
-    "name": "seda",
-    "price": 420,
-    "description": "alta seda",
-    "quantity": 25
+        "name": "seda",
+        "price": 420,
+        "quantity": 25,
+        "description": "alta seda",
+        "categories": ["sedas"]
+    },
+    {
+        "name": "elquemas pica",
+        "price": 100,
+        "description": "alto desmo",
+        "quantity": 25,
+        "categories": ["grinders"]
     }
 ]

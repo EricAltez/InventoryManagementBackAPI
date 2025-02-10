@@ -1,10 +1,11 @@
 import { DataSource } from 'typeorm';
-import { User } from 'src/user/entity/user.entity';
+import { User } from '../user/entity/user.entity';
 import { Role } from '../role/entity/role.entity';
-import { Permission } from 'src/permission/entity/permission.entity';
+import { Permission } from '../permission/entity/permission.entity';
 import { Product } from '../product/entity/product.entity';
-// Adjust path to your User entity
+import { Category } from '../category/entity/category.entity';
 
+//change credentials to be ENV
 const dataSource = new DataSource({
   type: 'mysql', // or 'mysql' | 'sqlite'
   host: 'localhost',
@@ -12,7 +13,7 @@ const dataSource = new DataSource({
   username: 'root', // Your DB username
   password: 'asdasd',
   database: 'inventorydb',
-  entities: [User, Role, Permission, Product], // Include your entities here
+  entities: [User, Role, Permission, Product, Category], // Include your entities here
   synchronize: true, // Use in development only! (Auto-creates tables)
 });
 
