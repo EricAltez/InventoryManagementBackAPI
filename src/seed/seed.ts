@@ -6,12 +6,11 @@ import { Product } from '../product/entity/product.entity';
 import * as permissionsData from './permission.json';
 import * as rolesData from './role.json';
 import * as usersData from './user.json';
-import * as productData from './product.json'
-import * as categoryData from './category.json'
+import * as productData from './product.json';
+import * as categoryData from './category.json';
 import { In, Repository } from 'typeorm';
 import { hashPassword } from '../utils/bcrypt';
 import { Category } from '../category/entity/category.entity';
-
 
 console.log('1.0');
 let userRepository: Repository<User>;
@@ -24,18 +23,22 @@ const loadEntities = async () => {
   console.log('loading entities');
   await permissionRepository.upsert(permissionsData, ['action', 'object']);
   await roleRepository.upsert(rolesData, ['name']);
-  const userDataWithoutRoles = await Promise.all(usersData.map(async (u) => {
-    u.password = await hashPassword(u.password)
-    const { roles, ...data } = u;
-    return data;
-  }));
+  const userDataWithoutRoles = await Promise.all(
+    usersData.map(async (u) => {
+      u.password = await hashPassword(u.password);
+      const { roles, ...data } = u;
+      return data;
+    }),
+  );
   await userRepository.upsert(userDataWithoutRoles, ['email']);
   await categoryRepository.upsert(categoryData, ['name']);
-  const productDataWithoutCategories = await Promise.all(productData.map(async (p) => {
-    const { categories, ...data } = p;
-    return data;
-  }));
-  await productRepository.upsert(productDataWithoutCategories, ['name'])
+  const productDataWithoutCategories = await Promise.all(
+    productData.map(async (p) => {
+      const { categories, ...data } = p;
+      return data;
+    }),
+  );
+  await productRepository.upsert(productDataWithoutCategories, ['name']);
   console.log('done loadiong entities');
 };
 
@@ -82,16 +85,10 @@ const loadUserRoles = async () => {
   //user-roles
   await Promise.all(
     usersData.map(async (u) => {
-      // console.log(u);
-      // console.log('all roles');
-      // console.log(await roleRepository.find());
-      // console.log(await userRepository.find());
       const defaultRoleName = 'user';
-      // console.log('searching in', [defaultRoleName, ...u.roles]);
       const userRoles = await roleRepository.findBy({
         name: In([defaultRoleName, ...u.roles]),
       });
-      // console.log(userRoles);
       const user = await userRepository.findOneBy({ username: u.username });
       user.roles = userRoles;
       await userRepository.save(user);
@@ -104,15 +101,15 @@ const loadProductCategories = async () => {
   console.log('loading product category relationship');
   await Promise.all(
     productData.map(async (p) => {
-      const defaultProductName = 'product';
       const productCategories = await categoryRepository.findBy({
-        name: In([defaultProductName, ...p.categories]),
+        name: In([...p.categories]),
       });
       const product = await productRepository.findOneBy({ name: p.name });
       product.categories = productCategories;
       await productRepository.save(product);
-    }))
-}
+    }),
+  );
+};
 
 //duplicated entries
 const main = async () => {
