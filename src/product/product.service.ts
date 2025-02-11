@@ -1,9 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import {
+  HttpCode,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { Product } from 'src/product/entity/product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
+import { Code, In, Repository } from 'typeorm';
 import { CreateProductDto } from './dto/product.dto';
 import { Category } from 'src/category/entity/category.entity';
+import { error } from 'console';
+import { HttpErrorByCode } from '@nestjs/common/utils/http-error-by-code.util';
 
 @Injectable()
 export class ProductService {
@@ -38,8 +45,16 @@ export class ProductService {
     return this.productRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findByName(name: string) {
+    const username = name;
+    const product = await this.productRepository.findOne({
+      where: { name: username },
+    });
+    console.log(product);
+    if (!product) {
+      console.log('no existe el producto');
+    }
+    return product;
   }
 
   // update(id: number, updateProductDto: UpdateProductDto) {
