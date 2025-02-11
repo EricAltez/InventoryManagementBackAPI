@@ -2,33 +2,57 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from 'src/category/entity/category.entity';
 import { Repository } from 'typeorm';
-import { CreateCategoryDto } from './dto/category.dto';
+import { CreateCategoryDto, UpdateCategoryDto } from './dto/category.dto';
 
 @Injectable()
 export class CategoryService {
   constructor(
     @InjectRepository(Category)
-    private categoryRepository: Repository<Category>
+    private categoryRepository: Repository<Category>,
   ) {}
+
   async createCategory(categoryData: CreateCategoryDto): Promise<Category> {
-    const newCategory = this.categoryRepository.create(categoryData)
-    await this.categoryRepository.save(newCategory)
-    return newCategory
+    const newCategory = this.categoryRepository.create(categoryData);
+    await this.categoryRepository.save(newCategory);
+    return newCategory;
   }
 
-  findAll() {
-    return `This action returns all category`;
+  async findAll() {
+    return await this.categoryRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  async findOneByName(categoryName: string) {
+    const categoryData = await this.categoryRepository.findOne({
+      where: { name: categoryName },
+    });
+    if (!categoryData) {
+      console.log('category not found');
+      return;
+    }
+    return categoryData;
   }
 
-  // update(id: number, updateCategoryDto: UpdateCategoryDto) {
-  //   return `This action updates a #${id} category`;
-  // }
+  async update(categoryId: number, updateCategoryDto: UpdateCategoryDto) {
+    const categoryToUpdate = await this.categoryRepository.findOne({
+      where: { id: categoryId },
+    });
+    if (!categoryToUpdate) {
+      return 'category not found';
+    }
+    Object.assign(categoryToUpdate, updateCategoryDto);
+    await this.categoryRepository.save(categoryToUpdate);
+    return categoryToUpdate;
+  }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async remove(categoryId: number) {
+    const categoryToRemove = await this.categoryRepository.findOne({
+      where: { id: categoryId },
+    });
+    if (!categoryToRemove) {
+      console.log('category not found');
+      return;
+    }
+    await this.categoryRepository.remove(categoryToRemove);
+    return;
   }
 }

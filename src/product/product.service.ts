@@ -7,10 +7,8 @@ import {
 import { Product } from 'src/product/entity/product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Code, In, Repository } from 'typeorm';
-import { CreateProductDto } from './dto/product.dto';
+import { CreateProductDto, UpdateProductDto } from './dto/product.dto';
 import { Category } from 'src/category/entity/category.entity';
-import { error } from 'console';
-import { HttpErrorByCode } from '@nestjs/common/utils/http-error-by-code.util';
 
 @Injectable()
 export class ProductService {
@@ -40,28 +38,41 @@ export class ProductService {
     return newProduct;
   }
 
-  findAll() {
-    console.log(this.productRepository);
+  async findAll() {
     return this.productRepository.find();
   }
 
-  async findByName(name: string) {
-    const username = name;
+  async findByName(userName: string) {
     const product = await this.productRepository.findOne({
-      where: { name: username },
+      where: { name: userName },
     });
-    console.log(product);
     if (!product) {
-      console.log('no existe el producto');
+      return 'product not found';
     }
     return product;
   }
 
-  // update(id: number, updateProductDto: UpdateProductDto) {
-  //   return `This action updates a #${id} product`;
-  // }
+  async update(productid: number, updateProductDto: UpdateProductDto) {
+    const productoToUpdate = await this.productRepository.findOne({
+      where: { id: productid },
+    });
+    if (!productoToUpdate) {
+      return 'product not found';
+    }
+    Object.assign(productoToUpdate, updateProductDto);
+    await this.productRepository.save(productoToUpdate);
+    return productoToUpdate;
+  }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(productId: number) {
+    const productToRemove = await this.productRepository.findOne({
+      where: { id: productId },
+    });
+    if (!productToRemove) {
+      console.log('product not found');
+      return;
+    }
+    await this.productRepository.remove(productToRemove);
+    return;
   }
 }

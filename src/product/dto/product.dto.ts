@@ -8,3 +8,11 @@ export class CreateProductDto {
   quantity: number;
   categories: string[];
 }
+
+//add update for categories
+export class UpdateProductDto {
+  name: string;
+  price: number;
+  description: string;
+  quantity: number;
+}

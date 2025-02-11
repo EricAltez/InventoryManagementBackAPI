@@ -1,3 +1,7 @@
 export class CreateCategoryDto {
-    name: string;
+  name: string;
+}
+
+export class UpdateCategoryDto {
+  name: string;
 }
