@@ -1,9 +1,10 @@
 import { DataSource } from 'typeorm';
-import { User } from '../user/entity/user.entity';
-import { Role } from '../role/entity/role.entity';
-import { Permission } from '../permission/entity/permission.entity';
-import { Product } from '../product/entity/product.entity';
-import { Category } from '../category/entity/category.entity';
+import { User } from '../user/entities/user.entity';
+import { Role } from '../role/entities/role.entity';
+import { Permission } from '../permission/entities/permission.entity';
+import { Product } from '../product/entities/product.entity';
+import { Category } from '../category/entities/category.entity';
+import { Sale, SaleProduct } from '../sale/entities/sale.entity';
 
 //change credentials to be ENV
 const dataSource = new DataSource({
@@ -13,7 +14,7 @@ const dataSource = new DataSource({
   username: 'root', // Your DB username
   password: 'asdasd',
   database: 'inventorydb',
-  entities: [User, Role, Permission, Product, Category], // Include your entities here
+  entities: [User, Role, Permission, Product, Category, Sale, SaleProduct], // Include your entities here
   synchronize: true, // Use in development only! (Auto-creates tables)
 });
 

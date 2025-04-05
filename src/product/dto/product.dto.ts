@@ -1,4 +1,4 @@
-import { Category } from 'src/category/entity/category.entity';
+import { Category } from '../../category/entities/category.entity';
 import { PrimaryGeneratedColumn, Column, Entity, ManyToMany } from 'typeorm';
 
 export class CreateProductDto {
@@ -14,5 +14,5 @@ export class UpdateProductDto {
   name: string;
   price: number;
   description: string;
-  quantity: number;
+  stock: number;
 }

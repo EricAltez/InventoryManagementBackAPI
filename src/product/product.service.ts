@@ -1,14 +1,9 @@
-import {
-  HttpCode,
-  HttpException,
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common';
-import { Product } from 'src/product/entity/product.entity';
+import { Injectable } from '@nestjs/common';
+import { Product } from '../product/entities/product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Code, In, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateProductDto, UpdateProductDto } from './dto/product.dto';
-import { Category } from 'src/category/entity/category.entity';
+import { Category } from '../category/entities/category.entity';
 
 @Injectable()
 export class ProductService {
@@ -28,7 +23,7 @@ export class ProductService {
         if (!category) {
           category = await this.categoryRepository.save({ name: categoryName });
         }
-        console.log(category);
+        console.log(`new category saved ${category}`);
         return category;
       }),
     );

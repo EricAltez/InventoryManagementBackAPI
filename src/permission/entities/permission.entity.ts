@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
-import { Role } from '../../role/entity/role.entity';
+import { Role } from '../../role/entities/role.entity';
 
 @Entity()
 export class Permission {

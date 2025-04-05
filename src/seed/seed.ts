@@ -1,8 +1,8 @@
 import dataSource from './ormConfig';
-import { User } from '../user/entity/user.entity';
-import { Role } from '../role/entity/role.entity';
-import { Permission } from '../permission/entity/permission.entity';
-import { Product } from '../product/entity/product.entity';
+import { User } from '../user/entities/user.entity';
+import { Role } from '../role/entities/role.entity';
+import { Permission } from '../permission/entities/permission.entity';
+import { Product } from '../product/entities/product.entity';
 import * as permissionsData from './permission.json';
 import * as rolesData from './role.json';
 import * as usersData from './user.json';
@@ -10,7 +10,7 @@ import * as productData from './product.json';
 import * as categoryData from './category.json';
 import { In, Repository } from 'typeorm';
 import { hashPassword } from '../utils/bcrypt';
-import { Category } from '../category/entity/category.entity';
+import { Category } from '../category/entities/category.entity';
 
 console.log('1.0');
 let userRepository: Repository<User>;
