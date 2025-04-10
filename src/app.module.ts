@@ -13,6 +13,7 @@ import { CategoryModule } from './category/category.module';
 import { Category } from './category/entities/category.entity';
 import { SaleModule } from './sale/sale.module';
 import { Sale, SaleProduct } from './sale/entities/sale.entity';
+import { StockModule } from './stock/stock.module';
 
 console.log(process.env.USERNAME, process.env.PASSWORD);
 @Module({
@@ -38,6 +39,7 @@ console.log(process.env.USERNAME, process.env.PASSWORD);
     ProductModule,
     CategoryModule,
     SaleModule,
+    StockModule,
   ],
 })
 export class AppModule {}

@@ -70,4 +70,19 @@ export class ProductService {
     await this.productRepository.remove(productToRemove);
     return;
   }
+
+  async updateStock(prodictId: number, quantitySold: number) {
+    const productToUpdate = await this.productRepository.findOne({
+      where: { id: prodictId },
+    });
+    if (!productToUpdate) {
+      return 'product not found';
+    }
+    if (productToUpdate.stock < quantitySold) {
+      return 'not enough stock';
+    }
+    productToUpdate.stock = productToUpdate.stock - quantitySold;
+    await this.productRepository.save(productToUpdate);
+    return productToUpdate;
+  }
 }

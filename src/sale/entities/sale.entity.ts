@@ -15,7 +15,9 @@ export class Sale {
   @Column()
   date: Date;
 
-  @OneToMany(() => SaleProduct, (saleProduct) => saleProduct.sale)
+  @OneToMany(() => SaleProduct, (saleProduct) => saleProduct.sale, {
+    cascade: true,
+  })
   saleProducts: SaleProduct[];
 }
 
@@ -30,9 +32,9 @@ export class SaleProduct {
   @Column('decimal')
   unitPrice: number;
 
-  @ManyToOne(() => Sale, (sale) => sale.saleProducts)
-  sale: Sale;
-
   @ManyToOne(() => Product, (product) => product.saleProducts)
   product: Product;
+
+  @ManyToOne(() => Sale, (sale) => sale.saleProducts)
+  sale: Sale;
 }
