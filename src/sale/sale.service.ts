@@ -34,6 +34,7 @@ export class SaleService {
         return res;
       }),
     );
+
     const creationData = { ...saleData, products: saleProducts };
     console.log(3);
     console.log(creationData);

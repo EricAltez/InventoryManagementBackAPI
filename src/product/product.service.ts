@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateProductDto, UpdateProductDto } from './dto/product.dto';
 import { Category } from '../category/entities/category.entity';
+import { Public } from 'decorators/publicDecorator';
 
 @Injectable()
 export class ProductService {
@@ -47,6 +48,16 @@ export class ProductService {
     return product;
   }
 
+  async findById(productId: number) {
+    const product = await this.productRepository.findOne({
+      where: { id: productId },
+    });
+    if (!product) {
+      return 'product not found';
+    }
+    return product;
+  }
+
   async update(productid: number, updateProductDto: UpdateProductDto) {
     const productoToUpdate = await this.productRepository.findOne({
       where: { id: productid },
@@ -79,6 +90,7 @@ export class ProductService {
       return 'product not found';
     }
     if (productToUpdate.stock < quantitySold) {
+      //turn to trow error
       return 'not enough stock';
     }
     productToUpdate.stock = productToUpdate.stock - quantitySold;

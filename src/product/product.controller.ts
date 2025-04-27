@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto, UpdateProductDto } from './dto/product.dto';
+import { Public } from 'decorators/publicDecorator';
 
 @Controller('product')
 export class ProductController {
@@ -19,6 +20,8 @@ export class ProductController {
     return this.productService.createProduct(productDto);
   }
 
+  //remove public decorator
+  @Public()
   @Get()
   findAll() {
     return this.productService.findAll();
@@ -29,10 +32,12 @@ export class ProductController {
     return this.productService.findByName(name);
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.productService.findOne(+id);
-  // }
+  //remove public decorator
+  @Public()
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.productService.findById(+id);
+  }
 
   //add update for categories
   @Patch(':id')
