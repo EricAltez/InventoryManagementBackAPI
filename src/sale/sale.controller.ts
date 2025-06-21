@@ -8,15 +8,22 @@ import {
   Delete,
 } from '@nestjs/common';
 import { SaleService } from './sale.service';
-import { CreateSaleDto } from './dto/sale.dto';
+import { CreateSaleDto, LoadSaleDto } from './dto/sale.dto';
+import { Public } from 'decorators/publicDecorator';
 
 @Controller('sale')
 export class SaleController {
   constructor(private readonly saleService: SaleService) {}
 
+  //tocando esto
+  @Public()
   @Post()
-  createSale(@Body() createSaleDto: CreateSaleDto) {
-    return this.saleService.createSale(createSaleDto);
+  createSale(@Body() loadSaleDto: LoadSaleDto) {
+    console.log('loadSaleDto', loadSaleDto);
+    if (!loadSaleDto.saleList) {
+      throw new Error('Invalid data');
+    }
+    return this.saleService.createSale(loadSaleDto);
   }
 
   @Get()

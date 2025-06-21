@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSaleDto } from './dto/sale.dto';
+import { LoadSaleDto } from './dto/sale.dto';
 import { Sale, SaleProduct } from './entities/sale.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -16,9 +16,10 @@ export class SaleService {
     private productService: ProductService,
   ) {}
 
-  async createSale(saleData: CreateSaleDto): Promise<Sale> {
+  // This method is used to create a sale with a list of products
+  async createSale(saleData: LoadSaleDto): Promise<Sale> {
     const saleProducts = await Promise.all(
-      saleData.products.map(async (saleRequest) => {
+      saleData.saleList.map(async (saleRequest) => {
         const product = await this.productRepository.findOneBy({
           id: saleRequest.productId,
         });
@@ -27,6 +28,12 @@ export class SaleService {
         res.unitPrice = product.price;
         res.product = product;
 
+        // Check if the product is in stock
+        if (product.stock < saleRequest.quantity) {
+          throw new Error(
+            `Insufficient stock for product ID ${saleRequest.productId}. Available: ${product.stock}, Requested: ${saleRequest.quantity}`,
+          );
+        }
         await this.productService.updateStock(
           saleRequest.productId,
           saleRequest.quantity,

@@ -17,3 +17,12 @@ export class UpdateSaleDto {
     },
   ];
 }
+
+export class LoadSaleDto {
+  saleList: [
+    {
+      productId: number;
+      quantity: number;
+    },
+  ];
+}
