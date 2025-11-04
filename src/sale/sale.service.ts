@@ -21,7 +21,7 @@ export class SaleService {
     const saleProducts = await Promise.all(
       saleData.saleList.map(async (saleRequest) => {
         const product = await this.productRepository.findOneBy({
-          id: saleRequest.productId,
+          id: saleRequest.id,
         });
         const res = new SaleProduct();
         res.quantity = saleRequest.quantity;
@@ -31,11 +31,11 @@ export class SaleService {
         // Check if the product is in stock
         if (product.stock < saleRequest.quantity) {
           throw new Error(
-            `Insufficient stock for product ID ${saleRequest.productId}. Available: ${product.stock}, Requested: ${saleRequest.quantity}`,
+            `Insufficient stock for product ID ${saleRequest.id}. Available: ${product.stock}, Requested: ${saleRequest.quantity}`,
           );
         }
         await this.productService.updateStock(
-          saleRequest.productId,
+          saleRequest.id,
           saleRequest.quantity,
         );
         return res;
@@ -43,8 +43,6 @@ export class SaleService {
     );
 
     const creationData = { ...saleData, products: saleProducts };
-    console.log(3);
-    console.log(creationData);
 
     const newSale = await this.saleRepository.create({
       date: new Date(),

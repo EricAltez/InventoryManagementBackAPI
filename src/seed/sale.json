@@ -1,6 +1,6 @@
 [
   {
     "date": "11/10/1993 - 13:30",
-    "products": { "productID": 1, "quantity": 1 }
+    "products": { "id": 1, "quantity": 1 }
   }
 ]

@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateProductDto, UpdateProductDto } from './dto/product.dto';
 import { Category } from '../category/entities/category.entity';
-import { Public } from 'decorators/publicDecorator';
+import { error } from 'console';
 
 @Injectable()
 export class ProductService {
@@ -16,6 +16,8 @@ export class ProductService {
   ) {}
 
   async createProduct(productData: CreateProductDto): Promise<Product> {
+    console.log(productData);
+    console.log(productData.categories);
     const newProductCategories = await Promise.all(
       productData.categories.map(async (categoryName) => {
         let category = await this.categoryRepository.findOneBy({
@@ -29,6 +31,15 @@ export class ProductService {
       }),
     );
     const creationData = { ...productData, categories: newProductCategories };
+    if (
+      !creationData.name ||
+      !creationData.price ||
+      !creationData.description ||
+      !creationData.stock ||
+      !creationData.categories
+    ) {
+      throw new Error('missing data');
+    }
     const newProduct = await this.productRepository.create(creationData);
     await this.productRepository.save(newProduct);
     return newProduct;
@@ -38,29 +49,30 @@ export class ProductService {
     return this.productRepository.find();
   }
 
-  async findByName(userName: string) {
+  async findByName(name: string) {
     const product = await this.productRepository.findOne({
-      where: { name: userName },
+      where: { name: name },
     });
     if (!product) {
-      return 'product not found';
+      return 'product name not found';
     }
     return product;
   }
 
-  async findById(productId: number) {
+  async findById(id: number) {
     const product = await this.productRepository.findOne({
-      where: { id: productId },
+      where: { id: id },
     });
+    console.log(id);
     if (!product) {
-      return 'product not found';
+      return 'product id not found';
     }
     return product;
   }
 
-  async update(productid: number, updateProductDto: UpdateProductDto) {
+  async update(id: number, updateProductDto: UpdateProductDto) {
     const productoToUpdate = await this.productRepository.findOne({
-      where: { id: productid },
+      where: { id: id },
     });
     if (!productoToUpdate) {
       return 'product not found';
@@ -70,10 +82,11 @@ export class ProductService {
     return productoToUpdate;
   }
 
-  async remove(productId: number) {
+  async remove(id: number) {
     const productToRemove = await this.productRepository.findOne({
-      where: { id: productId },
+      where: { id: id },
     });
+    console.log(productToRemove);
     if (!productToRemove) {
       console.log('product not found');
       return;
@@ -82,9 +95,9 @@ export class ProductService {
     return;
   }
 
-  async updateStock(prodictId: number, quantitySold: number) {
+  async updateStock(id: number, quantitySold: number) {
     const productToUpdate = await this.productRepository.findOne({
-      where: { id: prodictId },
+      where: { id: id },
     });
     if (!productToUpdate) {
       return 'product not found';

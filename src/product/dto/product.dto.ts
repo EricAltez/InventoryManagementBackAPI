@@ -1,16 +1,14 @@
-import { Category } from '../../category/entities/category.entity';
-import { PrimaryGeneratedColumn, Column, Entity, ManyToMany } from 'typeorm';
-
 export class CreateProductDto {
   name: string;
   price: number;
   description: string;
-  quantity: number;
+  stock: number;
   categories: string[];
 }
 
 //add update for categories
 export class UpdateProductDto {
+  id: number;
   name: string;
   price: number;
   description: string;

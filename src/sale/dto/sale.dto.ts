@@ -2,7 +2,7 @@ export class CreateSaleDto {
   date: Date;
   products: [
     {
-      productId: number;
+      id: number;
       quantity: number;
     },
   ];
@@ -12,7 +12,7 @@ export class UpdateSaleDto {
   date: Date;
   products: [
     {
-      productId: number;
+      id: number;
       quantity: number;
     },
   ];
@@ -21,7 +21,7 @@ export class UpdateSaleDto {
 export class LoadSaleDto {
   saleList: [
     {
-      productId: number;
+      id: number;
       quantity: number;
     },
   ];
